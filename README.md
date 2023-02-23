@@ -7,7 +7,7 @@ This project intends to be a simple tool that can produce pixel maps and let use
 ## Technical Details
 
 - Applying React skills from the course, "The Joy of React"
-  -- Learning how to use Styled Components to make beautiful (not really) websites!
-  TODO Add the link to the course
+  - TODO Add the link to the course
+  - Learning how to use Styled Components to make beautiful (not really) websites!
 - Learning how to use the Canvas API, since that is how the images are generated
 - Practicing design skills
