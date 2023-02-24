@@ -1,8 +1,14 @@
-import { useState, useId, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
 import Canvas from './Canvas';
-import DownloadBtn from './DownloadBtn';
 
 import buildGradient from './utils/buildGradient';
+
+const StyledNotice = styled.p`
+	text-align: right;
+	font-size: 0.7rem;
+`;
 
 const demoObj = {
 	dimensions: {
@@ -70,7 +76,19 @@ const demoStyle = {
 	],
 };
 
-function Wall({ canvasRef, wallDimensions }) {
+function drawInfoText(context, content) {
+	context.font = '16px sans-serif';
+	context.fillStyle = 'black';
+	context.fillText(`Event: ${content.eventName}`, 8, 20);
+	context.fillText(`Venue: ${content.venueName}`, 8, 50);
+}
+
+function Wall({
+	canvasRef,
+	wallDimensions,
+	eventName = 'N/A',
+	venueName = 'N/A',
+}) {
 	const [canvasDimensions, setCanvasDimensions] = useState({
 		width: 800,
 		height: 600,
@@ -167,6 +185,8 @@ function Wall({ canvasRef, wallDimensions }) {
 			context.stroke(line);
 		}
 
+		drawInfoText(context, { eventName, venueName });
+
 		// for (const flow of demoObj.flows) {
 		// 	for (const [startPanel, endPanel] of flow.selection) {
 		// 		drawFlow(context, startPanel, endPanel);
@@ -178,20 +198,9 @@ function Wall({ canvasRef, wallDimensions }) {
 		context.imageSmoothingQuality = 'high';
 	}
 
-	function handleClick() {
-		canvasRef.current.toBlob((blob) => {
-			const anchor = document.createElement('a');
-			anchor.download = 'pixel-map.png';
-			anchor.href = URL.createObjectURL(blob);
-
-			anchor.click();
-
-			URL.revokeObjectURL(anchor.href);
-		}, 'image/png');
-	}
-
 	return (
 		<>
+			<StyledNotice>Right-click image to save.</StyledNotice>
 			<Canvas
 				canvasRef={canvasRef}
 				draw={draw}
@@ -200,7 +209,6 @@ function Wall({ canvasRef, wallDimensions }) {
 			>
 				Pixel map did not render correctly.
 			</Canvas>
-			<DownloadBtn canvasRef={canvasRef} />
 		</>
 	);
 }

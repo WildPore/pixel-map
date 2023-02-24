@@ -17,6 +17,6 @@ const StyledRow = styled.div`
 	}
 `;
 
-export default function Row({ children }) {
-	return <StyledRow>{children}</StyledRow>;
+export default function Row({ children, ...delegated }) {
+	return <StyledRow {...delegated}>{children}</StyledRow>;
 }

@@ -1,15 +1,14 @@
 import { useId } from 'react';
 import styled from 'styled-components';
 
-import makeElementName from './utils/makeElementName';
+import Row from '../Layout/Row';
+
+import makeElementName from '../utils/makeElementName';
 
 const StyledSlider = styled.div`
 	display: grid;
 	grid-template-columns: 1fr max(4%, 1.65rem);
 	gap: 0.35rem;
-
-	input[type='range'] {
-	}
 
 	input[type='number'] {
 		text-align: right;
@@ -41,7 +40,7 @@ export default function Slider({ label, value, setValue, ...delegated }) {
 	};
 
 	return (
-		<>
+		<Row className='input'>
 			<label htmlFor={id}>{label}</label>
 			<StyledSlider>
 				<input name={rangeName} type='range' {...state} {...delegated} />
@@ -53,6 +52,6 @@ export default function Slider({ label, value, setValue, ...delegated }) {
 					{...delegated}
 				/>
 			</StyledSlider>
-		</>
+		</Row>
 	);
 }
