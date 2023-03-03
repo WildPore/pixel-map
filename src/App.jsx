@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 
+import { useLocalStorage } from './useLocalStorage';
+
 import './App.css';
 
 import Controls from './Controls';
@@ -14,11 +16,17 @@ const StyledContainer = styled.div`
 const StyledPageTitle = styled.h1``;
 
 function App() {
-	const [widthInPanels, setWidthInPanels] = useState(10);
-	const [heightInPanels, setHeightInPanels] = useState(3);
+	const [widthInPanels, setWidthInPanels] = useLocalStorage(
+		'width-in-panels',
+		10
+	);
+	const [heightInPanels, setHeightInPanels] = useLocalStorage(
+		'height-in-panels',
+		3
+	);
 
-	const [eventName, setEventName] = useState('');
-	const [venueName, setVenueName] = useState('');
+	const [eventName, setEventName] = useLocalStorage('event-name', '');
+	const [venueName, setVenueName] = useLocalStorage('venue-name', '');
 
 	const canvasRef = useRef(0);
 
